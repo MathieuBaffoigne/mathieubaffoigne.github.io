@@ -1,0 +1,132 @@
+---
+import { defaultLang, navItems, useTranslations } from "../i18n/ui";
+
+interface Props {
+  altPath?: string;
+}
+
+const { altPath } = Astro.props;
+const lang = Astro.currentLocale ?? defaultLang;
+const t = useTranslations(lang);
+const items = navItems(lang);
+const normalize = (path: string) => (path.length > 1 ? path.replace(/\/$/, "") : path);
+const currentPath = normalize(Astro.url.pathname);
+const switchHref = altPath ?? t("nav.home.href");
+---
+
+<header class="sticky top-0 z-50 bg-bg/80 backdrop-blur">
+  <div class="mx-auto flex max-w-5xl items-center justify-between border-b border-border px-4 py-4 sm:px-6">
+    <a href={t("nav.home.href")} class="nav-link shrink-0 font-mono text-sm font-semibold tracking-tight">
+      mathieu<span class="text-accent">.dev</span>
+    </a>
+
+    <div class="flex items-center gap-4">
+      <nav class="hidden items-center gap-6 sm:flex">
+        {
+          items.map((item) => (
+            <a
+              href={item.href}
+              class:list={[
+                "nav-link shrink-0 text-sm transition-colors hover:text-fg",
+                currentPath === item.href ? "text-fg" : "text-fg-strong",
+              ]}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <a
+        href={switchHref}
+        aria-label={t("lang.toggleLabel")}
+        data-lang-switch={lang === "en" ? "fr" : "en"}
+        class="shrink-0 rounded-lg border-2 border-border/60 px-2 py-1.5 text-center font-mono text-xs text-fg-strong transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 hover:text-fg"
+      >
+        {t("lang.switchTo")}
+      </a>
+
+      <button
+        type="button"
+        data-theme-toggle
+        aria-label="Basculer le thème clair/sombre"
+        class="cursor-pointer rounded-lg border-2 border-border/60 p-2 text-accent transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 hover:text-fg"
+      >
+        <svg
+          class="icon-sun h-4 w-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        >
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+        <svg
+          class="icon-moon h-4 w-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+        </svg>
+      </button>
+
+      <label
+        for="nav-toggle"
+        class="cursor-pointer rounded-lg border-2 border-border/60 p-2 text-fg-strong transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 hover:text-fg sm:hidden"
+        aria-label="Ouvrir le menu"
+      >
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
+      </label>
+    </div>
+  </div>
+
+  <input type="checkbox" id="nav-toggle" class="peer hidden" />
+  <nav class="hidden flex-col gap-1 border-t border-border bg-bg px-4 py-4 peer-checked:flex sm:hidden">
+    {
+      items.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            "rounded-lg px-2 py-2 text-sm transition-colors hover:bg-bg-soft",
+            currentPath === item.href ? "text-fg" : "text-fg-strong",
+          ]}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<script>
+  function initThemeToggle() {
+    document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const root = document.documentElement;
+        const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+        root.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+      });
+    });
+  }
+  function initLangSwitch() {
+    // Manually picking a language is an explicit choice: remember it so the
+    // auto-detect redirect (see BaseLayout) never overrides it on a later visit.
+    document.querySelectorAll("[data-lang-switch]").forEach((link) => {
+      link.addEventListener("click", () => {
+        const target = link.getAttribute("data-lang-switch");
+        if (target) localStorage.setItem("lang-pref", target);
+      });
+    });
+  }
+  document.addEventListener("astro:page-load", initThemeToggle);
+  document.addEventListener("astro:page-load", initLangSwitch);
+</script>

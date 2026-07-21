@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TimelineItem from "../../components/TimelineItem.astro";
+
+const timeline = [
+  {
+    date: "Ongoing",
+    title: "VAE — Computer Engineering Degree",
+    place: "Validation of prior experience (VAE)",
+    description:
+      "Currently pursuing a VAE (validation par les acquis de l'expérience) process to obtain a computer engineering degree based on professional experience gained since the career change.",
+  },
+  {
+    date: "2025 — Present",
+    title: "Software Engineer",
+    place: "CGI, Le Haillan",
+    description:
+      "Building fullstack applications for the water utility sector (billing, consumption tracking) — several million operations processed per year. Python APIs (FastAPI, Chalice, Django) and Angular frontends, on an AWS serverless architecture (Lambda, API Gateway, DynamoDB).",
+  },
+  {
+    date: "2022 — 2024",
+    title: "Full Stack Developer (work-study) & AI training",
+    place: "onepoint & Simplon.co Grand Ouest, Bègles",
+    description:
+      "Built an internal HR management application (Angular, Flask, MySQL, Docker), while completing a work-study AI developer program at Simplon.co.",
+  },
+  {
+    date: "2021",
+    title: "Fullstack JS web developer training",
+    place: "École O'clock",
+    description: "Intensive bootcamp that triggered the career change: fullstack web development fundamentals in JavaScript.",
+  },
+  {
+    date: "2013 — 2021",
+    title: "Metrology & Quality Control Technician",
+    place: "Aerospace and automotive sector (Safran, Valeo, Laroche Group...)",
+    description:
+      "Several years of high-precision dimensional control on critical parts, including a laser tracker technician role at Laroche Group. Education: Mechanical Engineering degree (IUT Bordeaux) and a professional degree in Quality Control & Metrology (IUT Figeac).",
+  },
+];
+---
+
+<BaseLayout
+  title="Journey — Mathieu Baffoigne"
+  description="Professional experience and education."
+  altPath="/parcours"
+>
+  <main class="mx-auto max-w-3xl px-4 pt-14 pb-20 sm:px-6">
+    <h1 class="reveal text-3xl font-bold">Journey</h1>
+    <p class="reveal mt-3 text-fg-muted">A summary of my professional experience and education.</p>
+    <ol class="relative mt-12 space-y-10 border-l border-border pl-2">
+      {timeline.map((item) => <TimelineItem {...item} />)}
+    </ol>
+  </main>
+</BaseLayout>

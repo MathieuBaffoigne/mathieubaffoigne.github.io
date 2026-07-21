@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404 — Mathieu Baffoigne" description="Page introuvable." noindex>
+  <main class="mx-auto max-w-2xl px-4 pt-14 pb-20 sm:px-6 text-center">
+    <p class="reveal font-mono text-sm text-accent">404</p>
+    <h1 class="reveal mt-4 text-3xl font-bold">Page introuvable</h1>
+    <p class="reveal mt-3 text-fg-muted">Cette page n'existe pas, ou plus.</p>
+    <a
+      href="/"
+      class="reveal mt-8 inline-block rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-fg transition hover:-translate-y-0.5 hover:bg-accent-hover"
+    >
+      Retour à l'accueil
+    </a>
+
+    <div class="reveal mt-16 border-t border-border pt-10">
+      <p class="font-mono text-sm text-accent">404</p>
+      <h2 class="mt-4 text-3xl font-bold">Page not found</h2>
+      <p class="mt-3 text-fg-muted">This page doesn't exist, or not anymore.</p>
+      <a
+        href="/en"
+        class="mt-8 inline-block rounded-lg border-2 border-border/60 px-5 py-2.5 text-sm font-medium transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10"
+      >
+        Back home
+      </a>
+    </div>
+  </main>
+</BaseLayout>

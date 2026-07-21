@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SkillGroup from "../../components/SkillGroup.astro";
+import { techLinks } from "../../data/tech-links";
+
+const groups = [
+  {
+    title: "Frontend",
+    skills: ["Angular", "TypeScript"],
+  },
+  {
+    title: "Backend",
+    skills: ["Python", "FastAPI", "Django", "Flask", "Chalice", "PostgreSQL", "MySQL"],
+  },
+  {
+    title: "Cloud & DevOps",
+    skills: ["AWS (Lambda, API Gateway, DynamoDB)", "Terraform", "Docker", "Git"],
+  },
+].map((group) => ({
+  ...group,
+  skills: group.skills.map((name) => ({ name, url: techLinks[name]?.url, icon: techLinks[name]?.icon })),
+}));
+
+const certGroups = [
+  {
+    title: "Microsoft",
+    skills: [
+      { name: "Azure Fundamentals", url: "https://learn.microsoft.com/en-us/users/mathieubaffoigne-3521/credentials/121f58bc1064d5ec" },
+      { name: "Azure AI Fundamentals", url: "https://learn.microsoft.com/en-us/users/mathieubaffoigne-3521/credentials/5ee4caae45fe3e77" },
+      { name: "Power BI Data Analyst Associate", url: "https://learn.microsoft.com/en-us/users/mathieubaffoigne-3521/credentials/54a1bc6f6b9e6df6" },
+      { name: "Azure Data Engineer Associate", url: "https://learn.microsoft.com/en-us/users/mathieubaffoigne-3521/credentials/de67580a2617f439" },
+    ],
+  },
+  {
+    title: "AWS",
+    skills: [
+      { name: "Cloud Practitioner", url: "https://aws.amazon.com/certification/certified-cloud-practitioner/", inProgress: true },
+      { name: "Developer - Associate", url: "https://aws.amazon.com/certification/certified-developer-associate/", inProgress: true },
+    ],
+  },
+  {
+    title: "Docstring.fr",
+    skills: [{ name: "Python Fundamentals", url: "https://www.docstring.fr/parcours/les-bases-de-python/certificate/c89676c0-d7ff-43a8-b636-4b35d1224a2d/" }],
+  },
+  {
+    title: "OPQUAST",
+    skills: [{ name: "Web Quality", url: "https://directory.opquast.com/fr/certificat/I4C0RB/" }],
+  },
+  {
+    title: "Simplon",
+    skills: [
+      { name: "Managing Agile Projects (RS5487)", url: "https://www.francecompetences.fr/recherche/rs/5487/" },
+    ],
+  },
+  {
+    title: "English",
+    skills: [{ name: "TOEIC", url: "https://www.ets.org/toeic.html", inProgress: true }],
+  },
+];
+---
+
+<BaseLayout
+  title="Skills — Mathieu Baffoigne"
+  description="Technical stack and tools used day to day."
+  altPath="/competences"
+>
+  <main class="mx-auto max-w-5xl px-4 pt-14 pb-20 sm:px-6">
+    <h1 class="reveal text-3xl font-bold">Skills</h1>
+    <p class="reveal mt-3 max-w-xl text-fg-muted">
+      The stack I work with the most, from design to production.
+    </p>
+    <div class="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+      {groups.map((group) => <SkillGroup title={group.title} skills={group.skills} />)}
+    </div>
+    <div class="mt-16 border-t border-border pt-10">
+      <h2 class="section-label font-mono text-sm uppercase tracking-wide text-fg-muted">Certifications</h2>
+      <div class="mt-6 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+        {certGroups.map((group) => <SkillGroup title={group.title} skills={group.skills} />)}
+      </div>
+    </div>
+  </main>
+</BaseLayout>

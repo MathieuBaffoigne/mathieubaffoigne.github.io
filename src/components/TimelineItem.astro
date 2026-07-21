@@ -1,0 +1,20 @@
+---
+interface Props {
+  date: string;
+  title: string;
+  place?: string;
+  description: string;
+}
+
+const { date, title, place, description } = Astro.props;
+---
+
+<li class="reveal relative pl-6">
+  <span class="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-accent ring-4 ring-bg"></span>
+  <p class="font-mono text-xs text-fg-muted">{date}</p>
+  <h3 class="mt-1 font-semibold">
+    {title}
+    {place && <span class="font-normal text-fg-muted"> — {place}</span>}
+  </h3>
+  <p class="mt-1 text-sm text-fg-muted">{description}</p>
+</li>

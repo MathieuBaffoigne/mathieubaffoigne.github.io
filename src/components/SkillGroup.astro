@@ -1,0 +1,53 @@
+---
+import { defaultLang, useTranslations } from "../i18n/ui";
+
+interface Skill {
+  name: string;
+  url?: string;
+  icon?: string;
+  inProgress?: boolean;
+}
+
+interface Props {
+  title: string;
+  skills: (string | Skill)[];
+}
+
+const { title, skills } = Astro.props;
+const items: Skill[] = skills.map((skill) => (typeof skill === "string" ? { name: skill } : skill));
+const lang = Astro.currentLocale ?? defaultLang;
+const t = useTranslations(lang);
+---
+
+<div class="reveal">
+  <h3 class="section-label font-mono text-sm uppercase tracking-wide text-fg-muted">{title}</h3>
+  <ul class="mt-3 flex flex-wrap gap-2">
+    {
+      items.map((skill) =>
+        skill.url ? (
+          <li>
+            <a
+              href={skill.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 rounded-lg border-2 border-border/60 bg-bg-soft px-3 py-1.5 text-sm transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 hover:text-accent"
+            >
+              {skill.icon && (
+                <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 shrink-0" fill="currentColor" aria-hidden="true">
+                  <path d={skill.icon} />
+                </svg>
+              )}
+              {skill.name}
+              {skill.inProgress && <span class="text-xs text-fg-muted">({t("card.inProgress")})</span>}
+            </a>
+          </li>
+        ) : (
+          <li class="rounded-lg border border-border bg-bg-soft px-3 py-1.5 text-sm">
+            {skill.name}
+            {skill.inProgress && <span class="ml-1.5 text-xs text-fg-muted">({t("card.inProgress")})</span>}
+          </li>
+        ),
+      )
+    }
+  </ul>
+</div>

@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => data.lang === "en" && !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/^en\//, "") },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const formatted = post.data.pubDate.toLocaleDateString("en-US", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
+const frPosts = await getCollection("blog", ({ data }) => data.lang === "fr");
+const altPost = frPosts.find((p) => p.data.translationKey === post.data.translationKey);
+const altPath = altPost ? `/blog/${altPost.id.replace(/^fr\//, "")}` : "/blog";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  inLanguage: "en",
+  author: { "@type": "Person", name: "Mathieu Baffoigne" },
+};
+---
+
+<BaseLayout
+  title={`${post.data.title} — Mathieu Baffoigne`}
+  description={post.data.description}
+  altPath={altPath}
+  jsonLd={jsonLd}
+>
+  <main class="mx-auto max-w-2xl px-4 pt-14 pb-20 sm:px-6">
+    <a href="/en/blog" class="reveal text-sm text-fg-muted hover:text-fg">&larr; Back to blog</a>
+    <p class="reveal mt-6 font-mono text-xs text-fg-muted">{formatted}</p>
+    <h1 class="reveal mt-2 text-3xl font-bold">{post.data.title}</h1>
+    <div class="reveal prose-custom mt-8">
+      <Content />
+    </div>
+  </main>
+</BaseLayout>

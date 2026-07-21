@@ -1,0 +1,38 @@
+---
+import { defaultLang, useTranslations } from "../i18n/ui";
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  tags: string[];
+  slug: string;
+}
+
+const { title, description, pubDate, tags, slug } = Astro.props;
+const lang = Astro.currentLocale ?? defaultLang;
+const t = useTranslations(lang);
+const formatted = pubDate.toLocaleDateString(lang === "en" ? "en-US" : "fr-FR", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+---
+
+<a
+  href={`${t("nav.blog.href")}/${slug}`}
+  class="reveal group block rounded-xl border-2 border-border/50 bg-bg-soft p-6 transition-colors hover:border-accent"
+>
+  <p class="font-mono text-xs text-fg-muted">{formatted}</p>
+  <h3 class="mt-2 text-lg font-semibold transition-colors group-hover:text-accent">{title}</h3>
+  <p class="mt-2 text-sm text-fg-muted">{description}</p>
+  {
+    tags.length > 0 && (
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {tags.map((tag) => (
+          <li class="font-mono text-xs text-fg-muted">#{tag}</li>
+        ))}
+      </ul>
+    )
+  }
+</a>

@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const email = "mathieubaffoigne@protonmail.com";
+---
+
+<BaseLayout
+  title="Contact — Mathieu Baffoigne"
+  description="Discutons de votre projet ou d'une opportunité."
+  altPath="/en/contact"
+>
+  <main class="mx-auto max-w-2xl px-4 pt-14 pb-20 sm:px-6">
+    <h1 class="reveal text-3xl font-bold">Contact</h1>
+    <p class="reveal mt-3 text-fg-muted">
+      Basé à Bègles (Gironde), ouvert aux opportunités fullstack en local ou en remote, missions freelance et
+      collaborations ponctuelles. Le plus simple : m'écrire un mail, je réponds sous 48h.
+    </p>
+    <a
+      href={`mailto:${email}`}
+      class="reveal mt-8 inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 font-medium text-accent-fg transition hover:-translate-y-0.5 hover:bg-accent-hover"
+    >
+      Envoyer un email
+    </a>
+  </main>
+</BaseLayout>
