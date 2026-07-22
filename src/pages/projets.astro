@@ -28,6 +28,10 @@ const projects = (await getCollection("projects", ({ data }) => data.lang === "f
             repoUrl={project.data.repoUrl}
             demoUrl={project.data.demoUrl}
             inProgress={project.data.inProgress}
+            openSource={project.data.openSource}
+            orgName={project.data.orgName}
+            orgUrl={project.data.orgUrl}
+            orgLogo={project.data.orgLogo}
           />
         ))
       }
