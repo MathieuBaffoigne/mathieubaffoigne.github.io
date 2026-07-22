@@ -2,7 +2,7 @@
 title: "Portfolio"
 description: "Site personnel bilingue (FR/EN) construit avec Astro et Tailwind CSS : rendu statique, JavaScript minimal, thème clair/sombre et détection automatique de la langue du navigateur."
 stack: ["Astro", "TypeScript", "Tailwind CSS"]
-repoUrl: "https://github.com/MathieuBaffoigne/Portfolio"
+repoUrl: "https://github.com/MathieuBaffoigne/mathieubaffoigne.github.io"
 featured: true
 pubDate: 2026-07-21
 lang: "fr"
