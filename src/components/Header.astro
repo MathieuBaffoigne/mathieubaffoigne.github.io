@@ -11,7 +11,9 @@ const t = useTranslations(lang);
 const items = navItems(lang);
 const normalize = (path: string) => (path.length > 1 ? path.replace(/\/$/, "") : path);
 const currentPath = normalize(Astro.url.pathname);
-const switchHref = altPath ?? t("nav.home.href");
+const homeHref = t("nav.home.href");
+const isActive = (href: string) => currentPath === href || (href !== homeHref && currentPath.startsWith(`${href}/`));
+const switchHref = altPath ?? homeHref;
 ---
 
 <header class="sticky top-0 z-50 bg-bg/80 backdrop-blur">
@@ -28,7 +30,7 @@ const switchHref = altPath ?? t("nav.home.href");
               href={item.href}
               class:list={[
                 "nav-link shrink-0 text-sm transition-colors hover:text-fg",
-                currentPath === item.href ? "text-fg" : "text-fg-strong",
+                isActive(item.href) ? "is-active text-fg" : "text-fg-strong",
               ]}
             >
               {item.label}
@@ -96,7 +98,7 @@ const switchHref = altPath ?? t("nav.home.href");
           href={item.href}
           class:list={[
             "rounded-lg px-2 py-2 text-sm transition-colors hover:bg-bg-soft",
-            currentPath === item.href ? "text-fg" : "text-fg-strong",
+            isActive(item.href) ? "text-fg" : "text-fg-strong",
           ]}
         >
           {item.label}

@@ -45,10 +45,10 @@ const timeline = [
   description="Expériences professionnelles et formation."
   altPath="/en/journey"
 >
-  <main class="mx-auto max-w-3xl px-4 pt-14 pb-20 sm:px-6">
+  <main class="mx-auto max-w-3xl px-4 pt-10 pb-20 sm:pt-12 sm:px-6">
     <h1 class="reveal text-3xl font-bold">Parcours</h1>
     <p class="reveal mt-3 text-fg-muted">Un résumé de mon expérience professionnelle et de ma formation.</p>
-    <ol class="relative mt-12 space-y-10 border-l border-border pl-2">
+    <ol class="relative mt-12 space-y-10 border-l border-border">
       {timeline.map((item) => <TimelineItem {...item} />)}
     </ol>
   </main>

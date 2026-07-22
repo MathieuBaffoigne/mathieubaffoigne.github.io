@@ -79,8 +79,14 @@ body {
   transform-origin: left;
   transition: transform 0.25s ease;
 }
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link.is-active::after {
   transform: scaleX(1);
+}
+/* Hovering a different link temporarily hides the active page's permanent
+   underline, so only one bar is ever visible at a time. */
+nav:has(.nav-link:hover) .nav-link.is-active:not(:hover)::after {
+  transform: scaleX(0);
 }
 
 /* Makes an entire card hoverable/clickable via one link, while a sibling
