@@ -30,6 +30,8 @@ export const ui = {
     "card.website": "Site",
     "lang.switchTo": "English",
     "lang.toggleLabel": "Passer en anglais",
+    "theme.toggleLabel": "Basculer le thème clair/sombre",
+    "nav.menu.toggleLabel": "Ouvrir le menu",
   },
   en: {
     "nav.home": "Home",
@@ -53,6 +55,8 @@ export const ui = {
     "card.website": "Website",
     "lang.switchTo": "Français",
     "lang.toggleLabel": "Switch to French",
+    "theme.toggleLabel": "Toggle light/dark theme",
+    "nav.menu.toggleLabel": "Open menu",
   },
 } as const;
 

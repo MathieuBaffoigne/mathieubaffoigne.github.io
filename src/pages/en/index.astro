@@ -13,7 +13,11 @@ const posts = (await getCollection("blog", ({ data }) => data.lang === "en" && !
   .slice(0, 2);
 ---
 
-<BaseLayout title="Mathieu Baffoigne — Fullstack developer" altPath="/">
+<BaseLayout
+  title="Mathieu Baffoigne — Fullstack developer"
+  description="Portfolio of Mathieu Baffoigne — Fullstack developer (Angular, Python, AWS). Projects, journey, and blog."
+  altPath="/"
+>
   <main class="mx-auto max-w-5xl px-4 sm:px-6">
     <section class="reveal pt-10 pb-14 sm:pt-12 sm:pb-16">
       <p class="font-mono text-sm text-accent">Fullstack developer, open to new opportunities</p>
